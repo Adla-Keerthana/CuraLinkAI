@@ -130,14 +130,15 @@ class ResearchService {
   rankResults(results, params) {
     const { filters } = params;
     const { publications, clinicalTrials } = results;
+    const { condition, intervention } = filters || {};
 
     const score = (item) => {
       let s = 0;
-      const text = (item.title + " " + (item.abstract || "")).toLowerCase();
+      const title = (item.title || "").toLowerCase();
+      const abstract = (item.abstract || "").toLowerCase();
       
-      // Boost if condition or intervention matches exactly in title
-      if (filters?.condition && item.title.toLowerCase().includes(filters.condition.toLowerCase())) s += 10;
-      if (filters?.intervention && item.title.toLowerCase().includes(filters.intervention.toLowerCase())) s += 10;
+      if (condition && (title.includes(condition.toLowerCase()) || abstract.includes(condition.toLowerCase()))) s += 40;
+      if (intervention && (title.includes(intervention.toLowerCase()) || abstract.includes(intervention.toLowerCase()))) s += 30;
       
       // Recency boost (last 3 years)
       const currentYear = new Date().getFullYear();
