@@ -1,0 +1,12 @@
+# Dependencies
+node_modules/
+.DS_Store
+
+# Environment Variables (CRITICAL)
+.env
+.env.local
+
+# Build outputs
+dist/
+build/
+.gemini/
