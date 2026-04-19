@@ -1475,18 +1475,23 @@ body {
   
   .mobile-menu-btn {
     z-index: 1001;
-    background: var(--blue-core); /* Solid blue background to make it POP */
-    color: white;
-    width: 42px;
-    height: 42px;
-    box-shadow: 0 4px 15px rgba(42, 127, 255, 0.3);
+    background: var(--blue-core); 
+    color: #ffffff !important; /* Force white icon */
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 20px rgba(42, 127, 255, 0.4);
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .tab-nav {
     flex: 1;
+    margin-right: 44px; /* Balance the menu button on the left */
+    display: flex;
     justify-content: center;
-    max-width: 220px; /* Constrain tabs so they don't push button out */
   }
   
   .tab-btn {
