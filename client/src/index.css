@@ -1465,16 +1465,21 @@ body {
 @media (max-width: 768px) {
   /* Layout Adjustments */
   .topbar {
-    padding: 0 12px;
-    height: 60px;
-    justify-content: flex-start; /* Pin items to the left so button is visible */
-    gap: 10px;
+    padding: 22px 12px 0; /* Huge top padding to clear browser headers */
+    height: 82px; /* Taller header to accommodate the shift */
+    justify-content: flex-start;
+    gap: 12px;
+    background: var(--bg-void); /* Solid background to prevent overlap transparency */
     border-bottom: 1px solid var(--border-faint);
   }
   
   .mobile-menu-btn {
     z-index: 1001;
-    background: rgba(42, 127, 255, 0.15); /* More visible background */
+    background: var(--blue-core); /* Solid blue background to make it POP */
+    color: white;
+    width: 42px;
+    height: 42px;
+    box-shadow: 0 4px 15px rgba(42, 127, 255, 0.3);
     flex-shrink: 0;
   }
   
