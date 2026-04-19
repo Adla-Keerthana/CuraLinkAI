@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, Send, BookOpen, FlaskConical, ChevronRight, Activity, Award, User, Clock, Loader2, Link as LinkIcon, ShieldCheck, Zap, Info, Database, Sparkles, Plus, Trash2, MessageSquare, ChevronDown, MoreHorizontal, Edit3, Check, X } from 'lucide-react';
+import { Search, Send, BookOpen, FlaskConical, ChevronRight, Activity, Award, User, Clock, Loader2, Link as LinkIcon, ShieldCheck, Zap, Info, Database, Sparkles, Plus, Trash2, MessageSquare, ChevronDown, MoreHorizontal, Edit3, Check, X, Menu } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
 
@@ -398,6 +398,13 @@ const App = () => {
 
       {/* ── Sidebar ── */}
       <aside className={`sidebar ${isSidebarOpen ? 'sidebar--open' : ''}`}>
+        {/* Mobile Close Button */}
+        <button 
+          className="lg:hidden absolute top-4 right-4 p-2 text-text-muted hover:text-white z-50"
+          onClick={() => setIsSidebarOpen(false)}
+        >
+          <X size={20} />
+        </button>
         <div className="sidebar__glow" />
 
         {/* Logo */}
@@ -521,8 +528,8 @@ const App = () => {
       {/* ── Main ── */}
       <main className="main">
         <header className="topbar">
-          <button className="mobile-menu-btn lg:hidden" onClick={() => setIsSidebarOpen(true)}>
-            <MoreHorizontal size={20} />
+          <button className="mobile-menu-btn" onClick={() => setIsSidebarOpen(true)}>
+            <Menu size={20} />
           </button>
           <nav className="tab-nav">
             <button className={`tab-btn ${activeTab === 'chat' ? 'tab-btn--active' : ''}`} onClick={() => setActiveTab('chat')}>
