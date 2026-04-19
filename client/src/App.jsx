@@ -531,6 +531,11 @@ const App = () => {
           <button className="mobile-menu-btn" onClick={() => setIsSidebarOpen(true)}>
             <Menu size={20} />
           </button>
+          
+          <div className="mobile-logo lg:hidden">
+            <span className="text-blue-400 font-serif italic">CuraLink</span> AI
+          </div>
+
           <nav className="tab-nav">
             <button className={`tab-btn ${activeTab === 'chat' ? 'tab-btn--active' : ''}`} onClick={() => setActiveTab('chat')}>
               <Sparkles size={13} /> Assistant

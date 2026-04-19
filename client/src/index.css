@@ -1465,33 +1465,45 @@ body {
 @media (max-width: 768px) {
   /* Layout Adjustments */
   .topbar {
-    padding: 22px 12px 0; /* Huge top padding to clear browser headers */
-    height: 82px; /* Taller header to accommodate the shift */
-    justify-content: flex-start;
-    gap: 12px;
-    background: var(--bg-void); /* Solid background to prevent overlap transparency */
+    padding: 40px 16px 0; /* Significant top gap to clear browser UI */
+    height: 100px;
+    justify-content: space-between;
+    background: var(--bg-void);
     border-bottom: 1px solid var(--border-faint);
+    position: relative;
+    z-index: 50;
+  }
+  
+  .mobile-logo {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    pointer-events: none;
   }
   
   .mobile-menu-btn {
+    position: absolute;
+    bottom: 10px;
+    left: 12px;
     z-index: 1001;
     background: var(--blue-core); 
-    color: #ffffff !important; /* Force white icon */
-    width: 44px;
-    height: 44px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 4px 20px rgba(42, 127, 255, 0.4);
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    color: #ffffff !important;
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
   }
   
   .tab-nav {
-    flex: 1;
-    margin-right: 44px; /* Balance the menu button on the left */
-    display: flex;
-    justify-content: center;
+    position: absolute;
+    top: 50px; /* Push tabs to the very top line below the browser gap */
+    right: 12px;
+    padding: 2px;
+    background: rgba(255, 255, 255, 0.03);
   }
   
   .tab-btn {
