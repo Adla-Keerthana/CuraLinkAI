@@ -1465,13 +1465,23 @@ body {
 @media (max-width: 768px) {
   /* Layout Adjustments */
   .topbar {
-    padding: 0 16px;
-    height: 56px;
+    padding: 0 12px;
+    height: 60px;
+    justify-content: flex-start; /* Pin items to the left so button is visible */
+    gap: 10px;
+    border-bottom: 1px solid var(--border-faint);
+  }
+  
+  .mobile-menu-btn {
+    z-index: 1001;
+    background: rgba(42, 127, 255, 0.15); /* More visible background */
+    flex-shrink: 0;
   }
   
   .tab-nav {
-    padding: 3px;
-    gap: 2px;
+    flex: 1;
+    justify-content: center;
+    max-width: 220px; /* Constrain tabs so they don't push button out */
   }
   
   .tab-btn {
