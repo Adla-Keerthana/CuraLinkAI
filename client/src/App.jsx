@@ -484,7 +484,24 @@ const App = () => {
           )}
         </div>
 
-
+        {/* Data Sources Attribution */}
+        <div className="sidebar__footer">
+          <p className="sidebar__eyebrow !mb-2 opacity-40 text-[8px]">Pipeline Data Sources</p>
+          <div className="flex flex-wrap gap-x-3 gap-y-1 px-4 pb-4 opacity-30 group-hover:opacity-60 transition-opacity">
+            <div className="flex items-center gap-1.5 grayscale opacity-70">
+              <BookOpen size={9} />
+              <span className="text-[9px] font-medium tracking-wide">PubMed</span>
+            </div>
+            <div className="flex items-center gap-1.5 grayscale opacity-70">
+              <LinkIcon size={9} />
+              <span className="text-[9px] font-medium tracking-wide">OpenAlex</span>
+            </div>
+            <div className="flex items-center gap-1.5 grayscale opacity-70">
+              <FlaskConical size={9} />
+              <span className="text-[9px] font-medium tracking-wide">Trials.gov</span>
+            </div>
+          </div>
+        </div>
       </aside>
 
       {/* ── Main ── */}
