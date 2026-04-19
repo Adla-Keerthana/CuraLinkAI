@@ -7,6 +7,21 @@ class ResearchService {
   }
 
   /**
+   * Helper to extract text from PubMed XML structures (handles strings, objects, and arrays)
+   */
+  extractPubMedText(node) {
+    if (!node) return "";
+    if (typeof node === 'string') return node;
+    if (Array.isArray(node)) {
+      return node.map(item => this.extractPubMedText(item)).join(' ');
+    }
+    if (typeof node === 'object') {
+      return node._ || node.text || JSON.stringify(node);
+    }
+    return String(node);
+  }
+
+  /**
    * PubMed API Integration with structured filters
    */
   async fetchPubMed(params, limit = 100) {
@@ -34,8 +49,8 @@ class ResearchService {
       return articleArray.map(item => {
         const article = item.MedlineCitation.Article;
         return {
-          title: article.ArticleTitle,
-          abstract: article.Abstract?.AbstractText || "No abstract available",
+          title: this.extractPubMedText(article.ArticleTitle),
+          abstract: this.extractPubMedText(article.Abstract?.AbstractText) || "No abstract available",
           authors: Array.isArray(article.AuthorList?.Author) 
             ? article.AuthorList.Author.map(a => `${a.LastName} ${a.Initials}`).join(', ')
             : article.AuthorList?.Author ? `${article.AuthorList.Author.LastName} ${article.AuthorList.Author.Initials}` : "Unknown",
@@ -111,6 +126,7 @@ class ResearchService {
         return {
           title: protocol.identificationModule.briefTitle,
           status: protocol.statusModule.overallStatus,
+          abstract: protocol.descriptionModule?.briefSummary || protocol.eligibilityModule?.eligibilityCriteria || "No summary available",
           eligibility: protocol.eligibilityModule?.eligibilityCriteria || "See full trial for details",
           location: protocol.contactsLocationsModule?.locations?.[0]?.facility || "Multiple Locations",
           contact: protocol.contactsLocationsModule?.centralContacts?.[0]?.email || "Contact investigator",
@@ -134,11 +150,20 @@ class ResearchService {
 
     const score = (item) => {
       let s = 0;
-      const title = (item.title || "").toLowerCase();
-      const abstract = (item.abstract || "").toLowerCase();
+      // Robustly convert to string and handle cases where abstract property might be missing or complex
+      const title = String(item.title || "").toLowerCase();
+      const abstractContent = item.abstract || item.eligibility || "";
+      const abstract = String(typeof abstractContent === 'string' ? abstractContent : JSON.stringify(abstractContent)).toLowerCase();
       
-      if (condition && (title.includes(condition.toLowerCase()) || abstract.includes(condition.toLowerCase()))) s += 40;
-      if (intervention && (title.includes(intervention.toLowerCase()) || abstract.includes(intervention.toLowerCase()))) s += 30;
+      if (condition) {
+        const condLower = condition.toLowerCase();
+        if (title.includes(condLower) || abstract.includes(condLower)) s += 40;
+      }
+      
+      if (intervention) {
+        const intrLower = intervention.toLowerCase();
+        if (title.includes(intrLower) || abstract.includes(intrLower)) s += 30;
+      }
       
       // Recency boost (last 3 years)
       const currentYear = new Date().getFullYear();
