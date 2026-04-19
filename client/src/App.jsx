@@ -198,6 +198,7 @@ const App = () => {
   });
   const [showContextEdit, setShowContextEdit] = useState(false);
   const [queryMode, setQueryMode] = useState('natural'); // 'natural' or 'structured'
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [structuredDraft, setStructuredDraft] = useState({
     condition: '',
     intervention: '',
@@ -382,8 +383,21 @@ const App = () => {
     <div className="shell">
       <ParticleField />
 
+      {/* Mobile Sidebar Overlay */}
+      <AnimatePresence>
+        {isSidebarOpen && (
+          <motion.div 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            exit={{ opacity: 0 }}
+            onClick={() => setIsSidebarOpen(false)}
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[90] lg:hidden"
+          />
+        )}
+      </AnimatePresence>
+
       {/* ── Sidebar ── */}
-      <aside className="sidebar">
+      <aside className={`sidebar ${isSidebarOpen ? 'sidebar--open' : ''}`}>
         <div className="sidebar__glow" />
 
         {/* Logo */}
@@ -400,7 +414,7 @@ const App = () => {
 
         {/* New Chat Button */}
         <div className="px-4 pt-5 pb-3">
-          <button onClick={startNewChat} className="new-chat-btn">
+          <button onClick={() => { startNewChat(); setIsSidebarOpen(false); }} className="new-chat-btn">
             <Plus size={15} strokeWidth={2.5} />
             <span>New Research Session</span>
             <Zap size={12} className="ml-auto opacity-60" />
@@ -440,7 +454,7 @@ const App = () => {
                       key={i}
                       session={s}
                       isActive={sessionId === s.sessionId}
-                      onClick={() => setSessionId(s.sessionId)}
+                      onClick={() => { setSessionId(s.sessionId); setIsSidebarOpen(false); }}
                       onDelete={() => setShowDeleteConfirm(s.sessionId)}
                       onRename={handleRenameSession}
                     />
@@ -507,6 +521,9 @@ const App = () => {
       {/* ── Main ── */}
       <main className="main">
         <header className="topbar">
+          <button className="mobile-menu-btn lg:hidden" onClick={() => setIsSidebarOpen(true)}>
+            <MoreHorizontal size={20} />
+          </button>
           <nav className="tab-nav">
             <button className={`tab-btn ${activeTab === 'chat' ? 'tab-btn--active' : ''}`} onClick={() => setActiveTab('chat')}>
               <Sparkles size={13} /> Assistant
