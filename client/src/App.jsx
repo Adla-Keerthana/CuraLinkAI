@@ -393,8 +393,8 @@ const App = () => {
             <div className="logo-mark__ring" />
           </div>
           <div>
-            <span className="logo-name">CuraLink</span>
-            <span className="logo-sub">Medical AI · v2.4</span>
+            <span className="logo-name">CuraLink AI</span>
+            <span className="logo-sub">Precision Medical Research</span>
           </div>
         </div>
 
@@ -411,49 +411,14 @@ const App = () => {
         <div className="sidebar__section sidebar__section--context">
           <div className="flex items-center justify-between mb-2">
             <p className="sidebar__eyebrow">Medical Context</p>
-            <button 
-              onClick={() => setShowContextEdit(!showContextEdit)}
-              className="text-[10px] uppercase font-bold text-blue-400 hover:text-blue-300 transition-colors"
-            >
-              {showContextEdit ? 'Save' : 'Edit'}
-            </button>
           </div>
           
-          <div className={`context-panel ${showContextEdit ? 'context-panel--editing' : ''}`}>
-            {showContextEdit ? (
-              <div className="space-y-2 p-1">
-                <div className="context-field">
-                  <label>Disease</label>
-                  <input 
-                    value={context.disease} 
-                    onChange={e => setContext({...context, disease: e.target.value})}
-                    placeholder="e.g. Parkinson's"
-                  />
-                </div>
-                <div className="context-field">
-                  <label>Location</label>
-                  <input 
-                    value={context.location} 
-                    onChange={e => setContext({...context, location: e.target.value})}
-                    placeholder="e.g. Toronto"
-                  />
-                </div>
-                <div className="context-field">
-                  <label>Patient Name</label>
-                  <input 
-                    value={context.patientName} 
-                    onChange={e => setContext({...context, patientName: e.target.value})}
-                    placeholder="Optional"
-                  />
-                </div>
-              </div>
-            ) : (
-              <div className="context-summary">
-                <div className="context-chip"><Activity size={10} /> {context.disease}</div>
-                {context.location && <div className="context-chip"><LinkIcon size={10} /> {context.location}</div>}
-                {context.patientName && <div className="context-chip"><User size={10} /> {context.patientName}</div>}
-              </div>
-            )}
+          <div className="context-panel">
+            <div className="context-summary">
+              <div className="context-chip"><Activity size={10} /> {context.disease}</div>
+              {context.location && <div className="context-chip"><LinkIcon size={10} /> {context.location}</div>}
+              {context.patientName && <div className="context-chip"><User size={10} /> {context.patientName}</div>}
+            </div>
           </div>
         </div>
 
@@ -519,47 +484,7 @@ const App = () => {
           )}
         </div>
 
-        {/* Intelligence Streams */}
-        <div className="sidebar__section sidebar__section--streams">
-          <p className="sidebar__eyebrow">Intelligence Streams</p>
-          <div className="streams">
-            {[
-              { icon: BookOpen, label: 'PubMed', sub: '35M+ articles', color: 'blue' },
-              { icon: LinkIcon, label: 'OpenAlex', sub: '250M+ works', color: 'cyan' },
-              { icon: FlaskConical, label: 'ClinicalTrials', sub: '480K+ trials', color: 'purple' },
-            ].map((s, i) => (
-              <div key={i} className="nav-stream">
-                <div className={`nav-stream__icon nav-stream__icon--${s.color}`}><s.icon size={14} /></div>
-                <div>
-                  <div className="nav-stream__label">{s.label}</div>
-                  <div className="nav-stream__sub">{s.sub}</div>
-                </div>
-                <div className="nav-stream__dot" />
-              </div>
-            ))}
-          </div>
-        </div>
 
-        {/* Status */}
-        <div className="sidebar__section">
-          <p className="sidebar__eyebrow">System Status</p>
-          <div className="status-panel">
-            <div className="status-row">
-              <span className="status-label">Llama Engine</span>
-              <span className="status-value status-value--on">Active <StatusOrb /></span>
-            </div>
-            <div className="status-row">
-              <span className="status-label">Stream Latency</span>
-              <span className="status-value" style={{ color: 'var(--amber)', fontFamily: 'var(--font-mono)', fontSize: '11px' }}>142ms</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Trust */}
-        <div className="sidebar__trust">
-          <div className="trust-item"><ShieldCheck size={12} className="text-emerald-500" /> Secure Protocol</div>
-          <div className="trust-item"><Award size={12} className="text-amber-500" /> ISO-27001 Certified</div>
-        </div>
       </aside>
 
       {/* ── Main ── */}
@@ -580,7 +505,7 @@ const App = () => {
               <div className="model-badge__dot" />
               <span className="model-badge__label">llama-3.3-70b</span>
             </div>
-            <button className="icon-btn"><Info size={15} /></button>
+
           </div>
         </header>
 
